@@ -1,0 +1,80 @@
+package com.deadline.kritz.jku.planer;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import com.deadline.kritz.jku.kusss.Course;
+import com.deadline.kritz.jku.kusss.CourseType;
+
+public class Group implements Comparable<Group> {
+	private List<Deadline> deadlines = new ArrayList<>();
+	private GroupType type;
+	private long id;
+	private String title;
+	private boolean hidden;
+
+	public Group(long id, String title, boolean hidden) {
+		this.id = id;
+		this.title = title;
+		this.hidden = hidden;
+	}
+
+	public Group(GroupType type) {
+		this(0, type.getTitle(), false);
+	}
+	
+	private boolean isCourse() {
+		return !(type instanceof Course);
+	}
+	
+	public Deadline[] getDeadlines() {
+		return deadlines.toArray(new Deadline[deadlines.size()]);
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public CourseType getCourseType() {
+		if(!isCourse()) return null;
+		Course c = (Course) type;
+		return c.getCourseType();
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
+	public void addDeadline(Deadline deadline) {
+		deadlines.add(deadline);
+		deadline.setGroup(this);
+		Collections.sort(deadlines, new Comparator<Deadline>() {
+			@Override
+			public int compare(Deadline d1, Deadline d2) {
+				return d1.getDate().compareTo(d2.getDate());
+			}
+		});
+	}
+
+	@Override
+	public int compareTo(Group group) {
+		if(deadlines.size()==0 && group.deadlines.size()==0) return 0;
+		else if(deadlines.size()==0 && group.deadlines.size()!=0) return 1;
+		else if(deadlines.size()!=0 && group.deadlines.size()==0) return -1;
+		else return deadlines.get(0).getDate().compareTo(group.deadlines.get(0).getDate());
+	}
+
+    public void deleteDeadline(Deadline deadlineItem) {
+		deadlines.remove(deadlineItem);
+    }
+}

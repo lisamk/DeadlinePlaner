@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\kritz\Documents\Software\Deadline\app\libs\jsoup-1.10.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="61f84a97f1a4f5905547b8b74afff8dc93f4cfce">
+        <dex dex="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.10.2_47cd9dc10cd5d2c81d3841239a128398a08df1fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="286630fb6f7ea10d14a3e820da27453d3b851ba8">
+        <dex dex="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_74066d656448e69ba00c5d03479dacaec224b5c1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\kritz\Documents\Software\Deadline\app\libs\ical4j-2.0.0\ical4j-2.0.0\ical4j-2.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a458796dda9c5dd640d8adc11e31c93c01f07460">
+        <dex dex="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\transforms\dex\debug\folders\1000\2\ical4j-2.0.0_eb0c19505906ef06e0dbad936b6fef12313d5e74\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\kritz\Documents\Software\Deadline\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_795c09b87c055c997ded0f32c3f58dfdd17fd6b8\classes.dex" />
+    </item>
+
+</items>
