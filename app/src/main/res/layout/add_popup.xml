@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="date"/>
+            android:hint="YYYY-MM-DD"/>
 
         <Button
             android:id="@+id/btnDate"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ems="10"
-            android:hint="time"/>
+            android:hint="HH:MM"/>
 
         <Button
             android:id="@+id/btnTime"

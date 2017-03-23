@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -17,12 +15,6 @@ import android.widget.Toast;
 
 import com.deadline.kritz.jku.planer.Deadline;
 import com.deadline.kritz.jku.planer.Planer;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
-import static com.deadline.kritz.jku.planer.Planer.SDF;
 
 class DeadlineView {
 
@@ -43,15 +35,8 @@ class DeadlineView {
         }
 
         listview = (ListView) activity.findViewById(R.id.listview_deadline);
-        Deadline[] deadlinesArray = new Deadline[planer.getDeadlines().size()];
-        int couterDeadlineArray = 0;
-        for(Deadline d : planer.getDeadlines()){
-            deadlinesArray[couterDeadlineArray] = d;
-            couterDeadlineArray++;
-        }
 
-
-        DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, deadlinesArray);
+        DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, planer.getDeadlines());
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -123,15 +108,7 @@ class DeadlineView {
     }
 
     public static void update() {
-        Deadline[] deadlinesArray = new Deadline[planer.getDeadlines().size()];
-        int couterDeadlineArray = 0;
-        for(Deadline d : planer.getDeadlines()){
-            deadlinesArray[couterDeadlineArray] = d;
-            couterDeadlineArray++;
-        }
-
-
-        DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, deadlinesArray);
+        DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, planer.getDeadlines());
         listview.setAdapter(adapter);
     }
 

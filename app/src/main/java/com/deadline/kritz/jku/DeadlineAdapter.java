@@ -10,10 +10,9 @@ import android.widget.TextView;
 
 import com.deadline.kritz.jku.planer.Deadline;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by danie on 18.03.2017.
@@ -21,13 +20,11 @@ import java.text.SimpleDateFormat;
 
 public class DeadlineAdapter extends ArrayAdapter<Deadline> {
 
+    private Context context;
+    private int layoutResourceId;
+    private List<Deadline> data = null;
 
-
-    Context context;
-    int layoutResourceId;
-    Deadline data[] = null;
-
-    public DeadlineAdapter(Context context, int layoutResourceId, Deadline[] data) {
+    public DeadlineAdapter(Context context, int layoutResourceId, List<Deadline> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -39,8 +36,7 @@ public class DeadlineAdapter extends ArrayAdapter<Deadline> {
         View row = convertView;
         DeadlineHolder holder = null;
 
-        if(row == null)
-        {
+        if(row == null) {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
@@ -50,15 +46,13 @@ public class DeadlineAdapter extends ArrayAdapter<Deadline> {
             holder.date = (TextView) row.findViewById(R.id.tvDeadlineDate);
             holder.time = (TextView) row.findViewById(R.id.tvDeadlineTime);
 
-
             row.setTag(holder);
         }
-        else
-        {
+        else {
             holder = (DeadlineHolder) row.getTag();
         }
 
-        Deadline deadline = data[position];
+        Deadline deadline = data.get(position);
 
         /* titel = Exercise, Exam
          * description = on click
@@ -66,16 +60,15 @@ public class DeadlineAdapter extends ArrayAdapter<Deadline> {
          */
 
         String groupName = deadline.getGroupName();
-        if(groupName.length() > 25){
+        if(groupName.length() > 25) {
             groupName = groupName.substring(0, 25);
             groupName += "...";
         }
 
-
         holder.group.setText(groupName);
         holder.title.setText(deadline.getTitle());
 
-        DateFormat dfDate = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy");
         DateFormat dfTime = new SimpleDateFormat(("HH:mm"));
 
         holder.date.setText(dfDate.format(deadline.getDate()));
@@ -84,8 +77,7 @@ public class DeadlineAdapter extends ArrayAdapter<Deadline> {
         return row;
     }
 
-    static class DeadlineHolder
-    {
+    private static class DeadlineHolder {
         TextView group;
         TextView title;
         TextView date;
