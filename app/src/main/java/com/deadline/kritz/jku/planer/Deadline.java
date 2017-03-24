@@ -1,5 +1,7 @@
 package com.deadline.kritz.jku.planer;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +35,7 @@ public class Deadline  implements Serializable  {
 		this.date = date;
 		this.title = title;
 		this.description = description;
-		for(Group g : Planer.getInstance().getGroups()) if(g.getGid().equals(gid)) this.group = g;
+		for(Group g : Planer.getInstance().getAllGroups()) if(g.getGid().equals(gid)) this.group = g;
 	}
 
 	public Date getDate() {
@@ -53,6 +55,7 @@ public class Deadline  implements Serializable  {
 	}
 
 	public String getGroupName() {
+		Log.d("---------", (group==null)+"");
 		return group.getTitle();
 	}
 

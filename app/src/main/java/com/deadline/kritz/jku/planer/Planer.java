@@ -67,6 +67,10 @@ public class Planer {
 		return gList;
 	}
 
+	public List<Group> getAllGroups() {
+		return groups;
+	}
+
 	public void setDeadlinesFromDB() {
 		datasource.open();
 		deadlines = datasource.getAllDeadlines();
@@ -113,8 +117,6 @@ public class Planer {
 	}
 
 	public void setDeadlinesFromKusss() {
-
-
 		datasource.open();
 		for (final Exam e : KusssHandlers.getInstance().getExams()) {
 			boolean add = true;
