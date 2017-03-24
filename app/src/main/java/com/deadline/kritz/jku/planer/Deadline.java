@@ -16,7 +16,8 @@ public class Deadline  implements Serializable  {
 	private String description;
 	private Group group;
 
-	public Deadline(String title, String description, Group group, Date date) {
+	public Deadline(long id, String title, String description, Group group, Date date) {
+		this.id = id;
 		this.date = date;
 		this.title = title;
 		this.description = description;
@@ -28,14 +29,7 @@ public class Deadline  implements Serializable  {
 		this.date = date;
 		this.title = title;
 		this.description = description;
-		for(Group g : Planer.getInstance().getGroups()) if(g.getGid().equals(gid)) this.group = g;
-	}
-
-	public Deadline(String title, String description, String gid, Date date) {
-		this.date = date;
-		this.title = title;
-		this.description = description;
-		for(Group g : Planer.getInstance().getAllGroups()) if(g.getGid().equals(gid)) this.group = g;
+		for(Group g : Planer.getInstance().getAllGroups()) if(g.getTitle().startsWith(gid)) this.group = g;
 	}
 
 	public Date getDate() {
@@ -55,7 +49,6 @@ public class Deadline  implements Serializable  {
 	}
 
 	public String getGroupName() {
-		Log.d("---------", (group==null)+"");
 		return group.getTitle();
 	}
 

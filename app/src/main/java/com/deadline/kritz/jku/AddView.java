@@ -81,7 +81,7 @@ public class AddView extends Dialog {
                     String d = date.getText()+" "+time.getText();
                     try {
                         Group g = groups.get(spGroups.getSelectedItem().toString());
-                        Planer.getInstance().addDeadline(g, new Deadline(title.getText().toString(), description.getText().toString(), g, SDF.parse(d)));
+                        Planer.getInstance().addDeadline(g, new Deadline(Planer.ID, title.getText().toString(), description.getText().toString(), g, SDF.parse(d)));
                         DeadlineView.update();
                         AddView.this.dismiss();
                     } catch (ParseException e) {

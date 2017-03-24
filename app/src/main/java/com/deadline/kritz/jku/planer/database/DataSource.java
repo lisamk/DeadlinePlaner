@@ -41,6 +41,7 @@ public class DataSource {
 
     public Deadline createDeadline(Deadline deadline) {
         ContentValues values = new ContentValues();
+        values.put(SQLiteHelper.D_COLUMN_ID, deadline.getId());
         values.put(SQLiteHelper.D_COLUMN_TITLE, deadline.getTitle());
         values.put(SQLiteHelper.D_COLUMN_DATE, SDF.format(deadline.getDate()));
         values.put(SQLiteHelper.D_COLUMN_DESCRIPTION, deadline.getDescription());
@@ -50,9 +51,11 @@ public class DataSource {
         Cursor cursor = database.query(SQLiteHelper.TABLE_DEADLINES,
                 allColumnsDeadline, SQLiteHelper.D_COLUMN_ID + " = " + insertId, null,
                 null, null, null);
-        cursor.moveToFirst();
-        Deadline newdeadline = cursorToDeadline(cursor);
-        cursor.close();
+        Deadline newdeadline = null;
+        if(cursor != null && cursor.moveToFirst() ){
+            newdeadline = cursorToDeadline(cursor);
+            cursor.close();
+        }
         return newdeadline;
     }
 

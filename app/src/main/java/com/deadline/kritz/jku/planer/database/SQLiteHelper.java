@@ -30,7 +30,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     // Database creation sql statement
     private static final String D_DATABASE_CREATE = "create table if not exists "
-            + TABLE_DEADLINES + "( " + D_COLUMN_ID + " integer primary key autoincrement, "
+            + TABLE_DEADLINES + "( " + D_COLUMN_ID + ", "
             + D_COLUMN_TITLE + ", " + D_COLUMN_GROUP + ", " + D_COLUMN_DESCRIPTION + ", " + D_COLUMN_DATE+");";
 
     public SQLiteHelper(Context context) {

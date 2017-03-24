@@ -27,6 +27,7 @@ public class Planer {
 	private List<Deadline> deadlines;
 	private List<Group> groups = new ArrayList<>();
 	private static Planer p;
+	public static long ID = 0;
 
 	public Planer(Context context) {
 		datasource = new DataSource(context);
@@ -74,6 +75,9 @@ public class Planer {
 	public void setDeadlinesFromDB() {
 		datasource.open();
 		deadlines = datasource.getAllDeadlines();
+		for(Deadline d : deadlines) {
+			if(d.getId()>ID) ID = d.getId()+1;
+		}
 		datasource.close();
 	}
 
@@ -90,7 +94,7 @@ public class Planer {
 		deadlines.remove(deadlineItem);
 		deadlineItem.getGroup().deleteDeadline(deadlineItem);
 		datasource.open();
-		datasource.createDeadline(deadlineItem);
+		datasource.deleteDeadline(deadlineItem);
 		datasource.close();
 	}
 
@@ -117,19 +121,19 @@ public class Planer {
 	}
 
 	public void setDeadlinesFromKusss() {
-		datasource.open();
 		for (final Exam e : KusssHandlers.getInstance().getExams()) {
 			boolean add = true;
+			Group group = null;
 			for(Group g : groups) if(g.getGid().equals(e.getCourseId())) {
-				add = false; break;
+				group = g; add = false; break;
 			}
 			if(add) {
-				Group g = new Group(e.getCourseId(), e.getTitle(), true);
-				groups.add(datasource.createGroup(g));
+				group = new Group(e.getCourseId(), e.getTitle(), true);
+				datasource.open();
+				groups.add(datasource.createGroup(group));
+				datasource.close();
 			}
-			deadlines.add(new Deadline("Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
-
+			addDeadline(group, new Deadline(ID++, "Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
 		}
-		datasource.close();
 	}
 }
