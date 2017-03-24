@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.deadline.kritz.jku.planer.Deadline;
 import com.deadline.kritz.jku.planer.Group;
@@ -23,7 +24,8 @@ public class DataSource {
     private String[] allColumnsDeadline = { SQLiteHelper.D_COLUMN_ID, SQLiteHelper.D_COLUMN_TITLE,
             SQLiteHelper.D_COLUMN_DESCRIPTION, SQLiteHelper.D_COLUMN_GROUP, SQLiteHelper.D_COLUMN_DATE };
 
-    private String[] allColumnsGroup = { SQLiteHelper.G_COLUMN_ID, SQLiteHelper.G_COLUMN_TITLE, SQLiteHelper.G_COLUMN_HIDDEN };
+    private String[] allColumnsGroup = { SQLiteHelper.G_COLUMN_ID, SQLiteHelper.G_COLUMN_TITLE,
+            SQLiteHelper.G_COLUMN_GID, SQLiteHelper.G_COLUMN_HIDDEN };
 
     public DataSource(Context context) {
         dbHelper = new SQLiteHelper(context);
@@ -79,7 +81,8 @@ public class DataSource {
 
     private Deadline cursorToDeadline(Cursor cursor) {
         try {
-            Deadline deadline = new Deadline(cursor.getLong(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), SDF.parse(cursor.getString(4)));
+            Deadline deadline = new Deadline(cursor.getLong(0), cursor.getString(1), cursor.getString(2),
+                    cursor.getString(3), SDF.parse(cursor.getString(4)));
             return deadline;
         } catch (ParseException e) {
             e.printStackTrace();
@@ -92,6 +95,7 @@ public class DataSource {
     public Group createGroup(Group group) {
         ContentValues values = new ContentValues();
         values.put(SQLiteHelper.G_COLUMN_TITLE, group.getTitle());
+        values.put(SQLiteHelper.G_COLUMN_GID, group.getGid());
         values.put(SQLiteHelper.G_COLUMN_HIDDEN, group.isHidden());
         long insertId = database.insert(SQLiteHelper.TABLE_GROUPS, null, values);
         Cursor cursor = database.query(SQLiteHelper.TABLE_GROUPS,
@@ -126,6 +130,6 @@ public class DataSource {
     }
 
     private Group cursorToGroup(Cursor cursor) {
-        return new Group(cursor.getLong(0), cursor.getString(1), Boolean.parseBoolean(cursor.getString(2)));
+        return new Group(cursor.getLong(0), cursor.getString(2), cursor.getString(1), cursor.getString(3).equals("1"));
     }
 }

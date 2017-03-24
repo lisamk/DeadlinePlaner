@@ -16,7 +16,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_GROUPS = "groups";
     public static final String G_COLUMN_ID = "_id";
-    public static final String G_COLUMN_TITLE = "title";
+    public static final String G_COLUMN_GID = "title";
+    public static final String G_COLUMN_TITLE = "gid";
     public static final String G_COLUMN_HIDDEN = "hidden";
 
     private static final String DATABASE_NAME = "deadline.db";
@@ -25,7 +26,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String G_DATABASE_CREATE = "create table if not exists "
             + TABLE_GROUPS + "( " + G_COLUMN_ID + " integer primary key autoincrement, "
-            + G_COLUMN_TITLE + ", " + G_COLUMN_HIDDEN + ");";
+            + G_COLUMN_TITLE + ", " + G_COLUMN_GID + ", " + G_COLUMN_HIDDEN + ");";
 
     // Database creation sql statement
     private static final String D_DATABASE_CREATE = "create table if not exists "

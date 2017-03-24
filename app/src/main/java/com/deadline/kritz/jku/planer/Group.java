@@ -12,17 +12,25 @@ public class Group implements Comparable<Group> {
 	private List<Deadline> deadlines = new ArrayList<>();
 	private GroupType type;
 	private long id;
+	private String gid;
 	private String title;
 	private boolean hidden;
 
-	public Group(long id, String title, boolean hidden) {
+	public Group(long id, String gid, String title, boolean hidden) {
 		this.id = id;
+		this.gid = gid;
+		this.title = title;
+		this.hidden = hidden;
+	}
+
+	public Group(String gid, String title, boolean hidden) {
+		this.gid = gid;
 		this.title = title;
 		this.hidden = hidden;
 	}
 
 	public Group(GroupType type) {
-		this(0, type.getTitle(), false);
+		this(0, type.gid, type.getTitle(), false);
 	}
 	
 	private boolean isCourse() {
@@ -77,4 +85,8 @@ public class Group implements Comparable<Group> {
     public void deleteDeadline(Deadline deadlineItem) {
 		deadlines.remove(deadlineItem);
     }
+
+	public String getGid() {
+		return gid;
+	}
 }

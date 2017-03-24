@@ -1,6 +1,7 @@
 package com.deadline.kritz.jku.planer;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.deadline.kritz.jku.kusss.Course;
+import com.deadline.kritz.jku.kusss.Exam;
 import com.deadline.kritz.jku.kusss.KusssHandler;
 import com.deadline.kritz.jku.kusss.KusssHandlers;
 import com.deadline.kritz.jku.kusss.Term;
@@ -58,7 +60,11 @@ public class Planer {
 	}
 
 	public List<Group> getGroups() {
-		return groups;
+		List<Group> gList = new ArrayList<>();
+		for(Group g : groups) if(!g.isHidden()) {
+			gList.add(g);
+		}
+		return gList;
 	}
 
 	public void setDeadlinesFromDB() {
@@ -88,12 +94,15 @@ public class Planer {
 		KusssHandler kusss = KusssHandlers.getInstance();
 		if(!kusss.login(id, pw)) return false;
 
+		return true;
+	}
+
+	public void setGroupsFromKusss() {
 		List<Term> l = new ArrayList<>();
 		l.add(new Term(2017, TermType.SUMMER));
-
 		datasource.open();
-		for (final Course c : kusss.getCourses(l)) {
-			groups.add(datasource.createGroup(new Group(new GroupType(c) {
+		for (final Course c : KusssHandlers.getInstance().getCourses(l)) {
+			groups.add(datasource.createGroup(new Group(new GroupType(c, c.getCourseId()) {
 				@Override
 				public String getTitle() {
 					return c.getTitle();
@@ -101,6 +110,24 @@ public class Planer {
 			})));
 		}
 		datasource.close();
-		return true;
+	}
+
+	public void setDeadlinesFromKusss() {
+
+
+		datasource.open();
+		for (final Exam e : KusssHandlers.getInstance().getExams()) {
+			boolean add = true;
+			for(Group g : groups) if(g.getGid().equals(e.getCourseId())) {
+				add = false; break;
+			}
+			if(add) {
+				Group g = new Group(e.getCourseId(), e.getTitle(), true);
+				groups.add(datasource.createGroup(g));
+			}
+			deadlines.add(new Deadline("Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
+
+		}
+		datasource.close();
 	}
 }

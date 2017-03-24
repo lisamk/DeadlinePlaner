@@ -108,15 +108,24 @@ class DeadlineView {
     }
 
     public static void update() {
-        DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, planer.getDeadlines());
-        listview.setAdapter(adapter);
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                DeadlineAdapter adapter = new DeadlineAdapter(context, R.layout.deadline_item, planer.getDeadlines());
+                listview.setAdapter(adapter);
+            }
+        });
     }
 
     private static class LoginTask extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String[] params) {
-            return planer.login(params[0], params[1]);
+            if(!planer.login(params[0], params[1])) return false;
+            planer.setGroupsFromKusss();
+            planer.setDeadlinesFromKusss();
+            update();
+            return true;
         }
 
         @Override

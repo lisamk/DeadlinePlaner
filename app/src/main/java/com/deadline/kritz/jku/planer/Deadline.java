@@ -21,12 +21,19 @@ public class Deadline  implements Serializable  {
 		this.group = group;
 	}
 
-	public Deadline(long id, String title, String description, String group, Date date) {
+	public Deadline(long id, String title, String description, String gid, Date date) {
 		this.id = id;
 		this.date = date;
 		this.title = title;
 		this.description = description;
-		for(Group g : Planer.getInstance().getGroups()) if(g.getTitle().equals(group)) this.group = g;
+		for(Group g : Planer.getInstance().getGroups()) if(g.getGid().equals(gid)) this.group = g;
+	}
+
+	public Deadline(String title, String description, String gid, Date date) {
+		this.date = date;
+		this.title = title;
+		this.description = description;
+		for(Group g : Planer.getInstance().getGroups()) if(g.getGid().equals(gid)) this.group = g;
 	}
 
 	public Date getDate() {
