@@ -166,7 +166,8 @@ public class ExamImpl implements Exam {
 		}
 
 		int mSign = time.indexOf("-");
-
+		if(mSign==-1) time += "-" + time;
+		mSign = time.indexOf("-");
 		startTime = time.substring(0, mSign - 1);
 		endTime = time.substring(mSign + 1);
 
