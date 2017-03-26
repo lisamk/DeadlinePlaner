@@ -16,8 +16,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_GROUPS = "groups";
     public static final String G_COLUMN_ID = "_id";
-    public static final String G_COLUMN_GID = "title";
-    public static final String G_COLUMN_TITLE = "gid";
+    public static final String G_COLUMN_GID = "gid";
+    public static final String G_COLUMN_TITLE = "title";
     public static final String G_COLUMN_HIDDEN = "hidden";
     public static final String G_COLUMN_YEAR = "year";
     public static final String G_COLUMN_TERM = "term";

@@ -9,13 +9,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.deadline.kritz.jku.kusss.Term;
 import com.deadline.kritz.jku.planer.Deadline;
 import com.deadline.kritz.jku.planer.Group;
 
-import static android.R.attr.id;
 import static com.deadline.kritz.jku.planer.Planer.SDF;
 
 public class DataSource {
@@ -105,6 +103,7 @@ public class DataSource {
         values.put(SQLiteHelper.G_COLUMN_YEAR, group.getTerm().getYear());
         values.put(SQLiteHelper.G_COLUMN_TERM, group.getTerm().getType().name());
         long insertId = database.insert(SQLiteHelper.TABLE_GROUPS, null, values);
+        group.setId(insertId);
         Cursor cursor = database.query(SQLiteHelper.TABLE_GROUPS,
                 allColumnsGroup, SQLiteHelper.G_COLUMN_ID + " = " + insertId, null,
                 null, null, null);
@@ -115,9 +114,9 @@ public class DataSource {
     }
 
     public void deleteGroup(Group group) {
-        String gid = group.getGid();
-        System.out.println("Group deleted with gid: " + gid);
-        database.delete(SQLiteHelper.TABLE_GROUPS, SQLiteHelper.G_COLUMN_GID + " = " + gid, null);
+        long id = group.getId();
+        System.out.println("Group deleted with gid: " + id);
+        database.delete(SQLiteHelper.TABLE_GROUPS, SQLiteHelper.G_COLUMN_ID + " = " + id, null);
     }
 
     public List<Group> getAllGroups() {

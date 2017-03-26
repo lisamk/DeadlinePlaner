@@ -3,75 +3,75 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\commons-lang3-3.1.jar"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="905075e6c80f206bbe6cf1e809d2caa69f420c76">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-lang3-3.1_ae9aa465ba572e6c38a7a3a8e1fc630b8354ddc9\classes.dex" />
+        sha1="e5080a24d0d4bc66747dce3f3b74ba8b5121e76a">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_796a4fb168afc1fc605f4948fc43b3cfe3df96f4\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_5f329d9dcd6f70ee415da9fab581520943eef694\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\logback-1.2.2\logback-classic-1.2.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1249941ab59291b9e210c86e17beb2b4f75e5cd0">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\logback-classic-1.2.2_96da86f9335e3200f98c15e8c746bf11120971e0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\jsoup-1.10.2.jar"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\jsoup-1.10.2.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="61f84a97f1a4f5905547b8b74afff8dc93f4cfce">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.10.2_cbb56dbf83499fec93dd123f3852a05a8f038464\classes.dex" />
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.10.2_34ff40d7ec9ab7c9cd8cf5b0319463d424357c90\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\logback-1.2.2\logback-core-1.2.2.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ae0f4f5c80c0384b31706a40496118fd0e66bcf1">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\logback-core-1.2.2_f4b309106b341f11cf50b634d4c5aa4b57ebab9a\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\ical4j-2.0.0\ical4j-2.0.0\ical4j-2.0.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a458796dda9c5dd640d8adc11e31c93c01f07460">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\ical4j-2.0.0_78e8023d60fe579ab9817eae66aaa88edf7f9062\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\libs\slf4j.jar"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\slf4j.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="306febacad18d3dfc996c48fc8c43f611f282a1e">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\slf4j_4dafb62b1cb63bc6583e0239e8e4db83bb70aadb\classes.dex" />
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\slf4j_4244c68f59d631f35f87c8edeb945dcea3729295\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\logback-1.2.2\logback-classic-1.2.2.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="2f04e0291c6cf8d17df7f252c55a8e7a3302e5b3">
-        <dex dex="C:\Users\kritz\Documents\Software\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_e7d650c5d005a3e3d376c5ae3f5261f07b0a2c0f\classes.dex" />
+        sha1="1249941ab59291b9e210c86e17beb2b4f75e5cd0">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\logback-classic-1.2.2_3c84f1cd35a3cd00d90c1f6ac3d0f29cd553b1ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\ical4j-2.0.0\ical4j-2.0.0\ical4j-2.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a458796dda9c5dd640d8adc11e31c93c01f07460">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\ical4j-2.0.0_c0e3915bc879ae7ef2ce027dbec1115203824797\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\logback-1.2.2\logback-core-1.2.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ae0f4f5c80c0384b31706a40496118fd0e66bcf1">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\logback-core-1.2.2_a12abea01f00b58f50a0c0b69da6f04447543b3e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\libs\commons-lang3-3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="905075e6c80f206bbe6cf1e809d2caa69f420c76">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\2\commons-lang3-3.1_e597733025bbd7d4b58c0a96c7402c1d3e9c3d24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="D:\Dateien\Software\2\DeadlinePlaner\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_bfe2c5baea14df77882d9b3ff91bfcb4628a25ba\classes.dex" />
     </item>
 
 </items>

@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.deadline.kritz.jku.planer.Group;
 import com.deadline.kritz.jku.planer.Planer;
@@ -41,6 +42,7 @@ public class GroupsAdapter extends ArrayAdapter<Group> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Planer.getInstance().replaceGroup(modelItems.get(position), cb.isChecked());
+                Toast.makeText(context, "Saved.", Toast.LENGTH_SHORT).show();
             }
         });
 

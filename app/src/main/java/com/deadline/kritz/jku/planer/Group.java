@@ -18,6 +18,13 @@ public class Group implements Comparable<Group> {
 	private boolean hidden;
 	private Term term;
 
+	public Group(String gid, String title, boolean hidden, Term term) {
+		this.gid = gid;
+		this.title = title;
+		this.hidden = hidden;
+		this.term = term;
+	}
+
 	public Group(long id, String gid, String title, boolean hidden, Term term) {
 		this.id = id;
 		this.gid = gid;
@@ -26,33 +33,20 @@ public class Group implements Comparable<Group> {
 		this.term = term;
 	}
 
-	public Group(String gid, String title, boolean hidden, Term term) {
-		this.gid = gid;
-		this.title = title;
-		this.hidden = hidden;
-		this.term = term;
-	}
-
 	public Group(GroupType type) {
-		this(0, type.gid, type.getTitle(), type.isHidden(), type.getTerm());
+		this(type.gid, type.getTitle(), type.isHidden(), type.getTerm());
 	}
 	
 	private boolean isCourse() {
 		return !(type instanceof Course);
 	}
 	
-	public Deadline[] getDeadlines() {
-		return deadlines.toArray(new Deadline[deadlines.size()]);
-	}
-	
 	public String getTitle() {
 		return title;
 	}
-	
-	public CourseType getCourseType() {
-		if(!isCourse()) return null;
-		Course c = (Course) type;
-		return c.getCourseType();
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public long getId() {

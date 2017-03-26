@@ -1,28 +1,21 @@
 package com.deadline.kritz.jku.planer;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import com.deadline.kritz.jku.kusss.Course;
-import com.deadline.kritz.jku.kusss.EventType;
 import com.deadline.kritz.jku.kusss.Exam;
 import com.deadline.kritz.jku.kusss.KusssHandler;
 import com.deadline.kritz.jku.kusss.KusssHandlers;
 import com.deadline.kritz.jku.kusss.Term;
 import com.deadline.kritz.jku.kusss.Term.TermType;
 import com.deadline.kritz.jku.planer.database.DataSource;
-
-import net.fortuna.ical4j.data.CalendarBuilder;
-import net.fortuna.ical4j.model.Component;
-import net.fortuna.ical4j.model.Property;
 
 public class Planer {
 
@@ -41,9 +34,10 @@ public class Planer {
 		datasource = new DataSource(context);
 		datasource.open();
 		groups = datasource.getAllGroups();
-		for(Group g : groups) if(!terms.contains(g.getTerm().toString())) {
-			System.out.println(g.getTerm().toString());
-			terms.add(g.getTerm().toString());
+		for(Group g : groups) {
+			if(!terms.contains(g.getTerm().toString())) {
+				terms.add(g.getTerm().toString());
+			}
 		}
 		datasource.close();
 	}
@@ -140,19 +134,21 @@ public class Planer {
 					datasource.open();
 					for (final Course c : courses) {
 						boolean add = true;
-						for (Group g : groups)
+						for (Group g : groups) {
 							if (g.getGid().equals(c.getCourseId())) {
 								add = false;
 								break;
 							}
+						}
 						if (!add) continue;
-						groups.add(datasource.createGroup(new Group(new GroupType(c, c.getCourseId(), l.get(0),
+						Group g = datasource.createGroup(new Group(new GroupType(c, c.getCourseId(), l.get(0),
 								!(type.equals(l.get(0).getType()) && year == l.get(0).getYear())) {
 							@Override
 							public String getTitle() {
 								return c.getTitle();
 							}
-						})));
+						}));
+						if(g!=null) groups.add(g);
 					}
 					datasource.close();
 				}
@@ -173,12 +169,6 @@ public class Planer {
 			for(Group g : groups) if(g.getGid().equals(e.getCourseId())) {
 					group = g; add = false; break;
 			}
-			/*if(add) {
-				group = new Group(e.getCourseId(), e.getTitle(), true, e);
-				datasource.open();
-				groups.add(datasource.createGroup(group));
-				datasource.close();
-			}*/
 			if(!add) addDeadline(group, new Deadline(ID++, "Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
 		}
 	}

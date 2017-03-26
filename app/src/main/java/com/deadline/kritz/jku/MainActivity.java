@@ -2,29 +2,23 @@ package com.deadline.kritz.jku;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.deadline.kritz.jku.kusss.Term;
+import com.deadline.kritz.jku.planer.Group;
 import com.deadline.kritz.jku.planer.Planer;
 
 import java.util.ArrayList;
@@ -51,19 +45,9 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-/*
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();*/
-
-        /*NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);*/
 
         View main = findViewById(currentView);
         main.setVisibility(View.VISIBLE);
-       // navigationView.getMenu().getItem(currentView==R.id.content_deadline ? 0 : 1).setChecked(true);
 
         // add all the other views
         views.add(findViewById(R.id.content_deadline));
@@ -94,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.action_grous) {
             manageGroups(MainActivity.this);
-            Toast.makeText(MainActivity.this, "GROUPS", Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.action_kusss) {
@@ -133,8 +116,9 @@ public class MainActivity extends AppCompatActivity {
         terms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                List<Group> listGroups = Planer.getInstance().getGroupsOfTerm(terms.getSelectedItem().toString());
                 GroupsAdapter adapterLV = new GroupsAdapter(
-                        activity, Planer.getInstance().getGroupsOfTerm(terms.getSelectedItem().toString()));
+                        activity, listGroups);
                 groups.setAdapter(adapterLV);
             }
 
@@ -149,31 +133,22 @@ public class MainActivity extends AppCompatActivity {
                 activity, Planer.getInstance().getGroupsOfTerm(terms.getSelectedItem().toString()));
         groups.setAdapter(adapterLV);
 
-        Switch enable = (Switch) groupDialog.findViewById(R.id.switchEnable);
-
-      //  Button btnSave = (Button) groupDialog.findViewById(R.id.btnSave);
-      //  Button btnCancel = (Button) groupDialog.findViewById(R.id.btnCancel);
-
-        // Attached listener for login GUI button
-      /*  btnLogin.setOnClickListener(new View.OnClickListener() {
+        final Switch enable = (Switch) groupDialog.findViewById(R.id.switchEnable);
+        enable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtUsername.getText()!=null && txtPassword.getText()!=null) {
-                    login.dismiss();
-                    dialog = ProgressDialog.show(context, "Loading", "Please wait...", true);
-                    new DeadlineView.LoginTask().execute("k"+txtUsername.getText().toString(), txtPassword.getText().toString());
+                List<Group> listGroups = Planer.getInstance().getGroupsOfTerm(terms.getSelectedItem().toString());
+                for(Group g : listGroups) {
+                    Planer.getInstance().replaceGroup(g, enable.isChecked());
                 }
-                else {
-                    Toast.makeText(activity, "Please enter Username and Password", Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(activity, "Saved.", Toast.LENGTH_SHORT).show();
+                listGroups = Planer.getInstance().getGroupsOfTerm(terms.getSelectedItem().toString());
+                GroupsAdapter adapterLV = new GroupsAdapter(
+                        activity, listGroups);
+                groups.setAdapter(adapterLV);
+                groups.setAdapter(adapterLV);
             }
         });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login.dismiss();
-            }
-        });*/
 
         // Make dialog box visible.
         groupDialog.show();

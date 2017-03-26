@@ -1,7 +1,5 @@
 package com.deadline.kritz.jku.planer;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
