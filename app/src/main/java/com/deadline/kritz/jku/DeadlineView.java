@@ -57,10 +57,11 @@ class DeadlineView {
                     }
                 });
 
-                builder.setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        Dialog dialog = new AddView(context, deadlineItem);
+                        dialog.show();
                     }
                 });
                 AlertDialog dialog = builder.create();
@@ -69,7 +70,7 @@ class DeadlineView {
         });
     }
 
-    private static void login(final Activity activity) {
+    public static void login(final Activity activity) {
         // Create Object of Dialog class
         login = new Dialog(activity);
         // Set GUI of login screen
@@ -89,7 +90,7 @@ class DeadlineView {
                 if(txtUsername.getText()!=null && txtPassword.getText()!=null) {
                     login.dismiss();
                     dialog = ProgressDialog.show(context, "Loading", "Please wait...", true);
-                    new LoginTask().execute(txtUsername.getText().toString(), txtPassword.getText().toString());
+                    new LoginTask().execute("k"+txtUsername.getText().toString(), txtPassword.getText().toString());
                 }
                 else {
                     Toast.makeText(activity, "Please enter Username and Password", Toast.LENGTH_LONG).show();
@@ -132,7 +133,7 @@ class DeadlineView {
         protected void onPostExecute(Boolean success) {
             dialog.dismiss();
             if(success) {
-                Toast.makeText(context, "Login successful.", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Loading successful.", Toast.LENGTH_LONG).show();
             }
             else {
                 Toast.makeText(context, "Wrong Userdata.", Toast.LENGTH_LONG).show();

@@ -496,9 +496,11 @@ public class KusssHandlerImpl implements KusssHandler {
 			if (courses != null && courses.size() == 0) {
 				// break if no lvas found, a student without courses is a quite
 				// impossible case
-				throw new IOException("no lvas found");
+
+				//throw new IOException("no lvas found");
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			onHandleException(e, true);
 			return null;
 		}

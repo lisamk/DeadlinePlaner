@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.deadline.kritz.jku.kusss.Course;
 import com.deadline.kritz.jku.kusss.CourseType;
+import com.deadline.kritz.jku.kusss.Term;
 
 public class Group implements Comparable<Group> {
 	private List<Deadline> deadlines = new ArrayList<>();
@@ -15,22 +16,25 @@ public class Group implements Comparable<Group> {
 	private String gid;
 	private String title;
 	private boolean hidden;
+	private Term term;
 
-	public Group(long id, String gid, String title, boolean hidden) {
+	public Group(long id, String gid, String title, boolean hidden, Term term) {
 		this.id = id;
 		this.gid = gid;
 		this.title = title;
 		this.hidden = hidden;
+		this.term = term;
 	}
 
-	public Group(String gid, String title, boolean hidden) {
+	public Group(String gid, String title, boolean hidden, Term term) {
 		this.gid = gid;
 		this.title = title;
 		this.hidden = hidden;
+		this.term = term;
 	}
 
 	public Group(GroupType type) {
-		this(0, type.gid, type.getTitle(), false);
+		this(0, type.gid, type.getTitle(), type.isHidden(), type.getTerm());
 	}
 	
 	private boolean isCourse() {
@@ -88,5 +92,9 @@ public class Group implements Comparable<Group> {
 
 	public String getGid() {
 		return gid;
+	}
+
+	public Term getTerm() {
+		return term;
 	}
 }

@@ -5,17 +5,24 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import com.deadline.kritz.jku.kusss.Course;
+import com.deadline.kritz.jku.kusss.EventType;
 import com.deadline.kritz.jku.kusss.Exam;
 import com.deadline.kritz.jku.kusss.KusssHandler;
 import com.deadline.kritz.jku.kusss.KusssHandlers;
 import com.deadline.kritz.jku.kusss.Term;
 import com.deadline.kritz.jku.kusss.Term.TermType;
 import com.deadline.kritz.jku.planer.database.DataSource;
+
+import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.Property;
 
 public class Planer {
 
@@ -25,6 +32,7 @@ public class Planer {
 
 	private final DataSource datasource;
 	private List<Deadline> deadlines;
+	private List<String> terms = new ArrayList<>();
 	private List<Group> groups = new ArrayList<>();
 	private static Planer p;
 	public static long ID = 0;
@@ -33,6 +41,10 @@ public class Planer {
 		datasource = new DataSource(context);
 		datasource.open();
 		groups = datasource.getAllGroups();
+		for(Group g : groups) if(!terms.contains(g.getTerm().toString())) {
+			System.out.println(g.getTerm().toString());
+			terms.add(g.getTerm().toString());
+		}
 		datasource.close();
 	}
 	
@@ -63,6 +75,14 @@ public class Planer {
 	public List<Group> getGroups() {
 		List<Group> gList = new ArrayList<>();
 		for(Group g : groups) if(!g.isHidden()) {
+			gList.add(g);
+		}
+		return gList;
+	}
+
+	public List<Group> getGroupsOfTerm(String term) {
+		List<Group> gList = new ArrayList<>();
+		for(Group g : groups) if(g.getTerm().toString().equals(term)) {
 			gList.add(g);
 		}
 		return gList;
@@ -106,34 +126,73 @@ public class Planer {
 	}
 
 	public void setGroupsFromKusss() {
+		int month = Calendar.getInstance().get(Calendar.MONTH);
+		TermType type = (month>=Calendar.MARCH && month<Calendar.OCTOBER) ? TermType.SUMMER : TermType.WINTER;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		List<Term> l = new ArrayList<>();
-		l.add(new Term(2017, TermType.SUMMER));
-		datasource.open();
-		for (final Course c : KusssHandlers.getInstance().getCourses(l)) {
-			groups.add(datasource.createGroup(new Group(new GroupType(c, c.getCourseId()) {
-				@Override
-				public String getTitle() {
-					return c.getTitle();
+		for(TermType t : new TermType[] {TermType.SUMMER, TermType.WINTER}) {
+			for (int i = Calendar.getInstance().get(Calendar.YEAR) - 1; i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
+				l.clear();
+				l.add(new Term(i, t));
+				List<Course> courses = KusssHandlers.getInstance().getCourses(l);
+				if(courses.size()>0) {
+					if(!terms.contains(l.get(0).toString())) terms.add(l.get(0).toString());
+					datasource.open();
+					for (final Course c : courses) {
+						boolean add = true;
+						for (Group g : groups)
+							if (g.getGid().equals(c.getCourseId())) {
+								add = false;
+								break;
+							}
+						if (!add) continue;
+						groups.add(datasource.createGroup(new Group(new GroupType(c, c.getCourseId(), l.get(0),
+								!(type.equals(l.get(0).getType()) && year == l.get(0).getYear())) {
+							@Override
+							public String getTitle() {
+								return c.getTitle();
+							}
+						})));
+					}
+					datasource.close();
 				}
-			})));
+			}
 		}
-		datasource.close();
 	}
 
 	public void setDeadlinesFromKusss() {
 		for (final Exam e : KusssHandlers.getInstance().getExams()) {
 			boolean add = true;
 			Group group = null;
-			for(Group g : groups) if(g.getGid().equals(e.getCourseId())) {
-				group = g; add = false; break;
+			for(Deadline d : deadlines) {
+				if (d.getDate().equals(e.getDtStart()) && e.getTitle().startsWith(d.getGroupName())) {
+					add = false; break;
+				}
 			}
-			if(add) {
-				group = new Group(e.getCourseId(), e.getTitle(), true);
+			if(!add) continue;
+			for(Group g : groups) if(g.getGid().equals(e.getCourseId())) {
+					group = g; add = false; break;
+			}
+			/*if(add) {
+				group = new Group(e.getCourseId(), e.getTitle(), true, e);
 				datasource.open();
 				groups.add(datasource.createGroup(group));
 				datasource.close();
-			}
-			addDeadline(group, new Deadline(ID++, "Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
+			}*/
+			if(!add) addDeadline(group, new Deadline(ID++, "Exam", e.getDescription(), e.getCourseId(), e.getDtStart()));
 		}
+	}
+
+	public List<String> getTerms() {
+		Collections.sort(terms);
+		return terms;
+	}
+
+	public void replaceGroup(Group group, boolean checked) {
+		datasource.open();
+		groups.remove(group);
+		datasource.deleteGroup(group);
+		groups.add(datasource.createGroup(new Group(group.getGid(), group.getTitle(), checked, group.getTerm())));
+		datasource.close();
 	}
 }

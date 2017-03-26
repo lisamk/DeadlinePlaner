@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/txtUsername"
         android:layout_width="match_parent"
-        android:hint="k1234567"/>
+        android:inputType="number"
+        android:hint="1234567"/>
 
     <EditText
         android:layout_height="wrap_content"
